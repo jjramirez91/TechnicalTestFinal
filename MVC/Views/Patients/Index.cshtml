@@ -1,0 +1,77 @@
+﻿@model IEnumerable<MVC.Models.mvcPatientsModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Patients</h2>
+
+<p>
+    <a href="@Url.Action("AddOrEdit", "Patients")" class="btn btn-default"><i class="fa fa-plus"></i> Create New</a>
+</p>
+<table class="table table-striped">
+    <thead class="table-heading">
+        <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Date Of Birth</th>
+            <th>Nacionality</th>
+            <th>Diseases</th>
+            <th>Phone Number</th>
+            <th>Blood Type</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.PatientID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateOfBirth)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NacionalityID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Diseases)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PhoneNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BloodTypeID)
+        </td>
+        <td>
+            <a href="@Url.Action("AddOrEdit", "Patients", new { id=item.PatientID})" class="btn btn-default"><i class="fa fa-pencil"></i> Edit </a>
+            <a onclick="Delete(@item.PatientID)" class="btn btn-default"><i class="fa fa-trash"></i> Delete </a>
+        </td>
+    </tr>
+}
+
+</table>
+
+@section scripts{
+    <script>
+        $(function () {
+            var successMessage = '@TempData["SuccessMessage"]';
+            if (successMessage != '')
+                alertify.success(successMessage);
+        })
+
+        $(function Delete(id) {
+            alertify.confirm('Technical Test', 'Are you sure to delete this record?', function () {
+                window.location.href='@Url.Action("Delete", "Patients")/' + id;
+            }, null);
+        }
+        })
+        </script>
+    }

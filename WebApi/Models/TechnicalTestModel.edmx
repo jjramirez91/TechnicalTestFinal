@@ -1,0 +1,314 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="TechnicalTestDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BloodTypes">
+          <Key>
+            <PropertyRef Name="BloodTypeID" />
+          </Key>
+          <Property Name="BloodTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BloodTypeName" Type="varchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Nationalities">
+          <Key>
+            <PropertyRef Name="NacionalityID" />
+          </Key>
+          <Property Name="NacionalityID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NacionalityName" Type="varchar" MaxLength="40" />
+          <Property Name="CountryName" Type="varchar" MaxLength="40" />
+        </EntityType>
+        <EntityType Name="Patients">
+          <Key>
+            <PropertyRef Name="PatientID" />
+          </Key>
+          <Property Name="PatientID" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="DateOfBirth" Type="date" Nullable="false" />
+          <Property Name="NacionalityID" Type="int" Nullable="false" />
+          <Property Name="Diseases" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="10" />
+          <Property Name="BloodTypeID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Patients_BloodTypes">
+          <End Role="BloodTypes" Type="Self.BloodTypes" Multiplicity="1" />
+          <End Role="Patients" Type="Self.Patients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BloodTypes">
+              <PropertyRef Name="BloodTypeID" />
+            </Principal>
+            <Dependent Role="Patients">
+              <PropertyRef Name="BloodTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Patients_Nationalities">
+          <End Role="Nationalities" Type="Self.Nationalities" Multiplicity="1" />
+          <End Role="Patients" Type="Self.Patients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nationalities">
+              <PropertyRef Name="NacionalityID" />
+            </Principal>
+            <Dependent Role="Patients">
+              <PropertyRef Name="NacionalityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="spBloodTypesListAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="General" />
+        <Function Name="spNationalitiesListAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="General" />
+        <Function Name="spPatientsAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="General">
+          <Parameter Name="PatientID" Type="varchar" Mode="In" />
+          <Parameter Name="FirstName" Type="varchar" Mode="In" />
+          <Parameter Name="LastName" Type="varchar" Mode="In" />
+          <Parameter Name="DateOfBirth" Type="date" Mode="In" />
+          <Parameter Name="NacionalityID" Type="int" Mode="In" />
+          <Parameter Name="Diseases" Type="varchar" Mode="In" />
+          <Parameter Name="PhoneNumber" Type="varchar" Mode="In" />
+          <Parameter Name="BloodTypeID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spPatientsDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="General">
+          <Parameter Name="PatientID" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="spPatientsListAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="General" />
+        <Function Name="spPatientsUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="General">
+          <Parameter Name="PatientID" Type="varchar" Mode="In" />
+          <Parameter Name="FirstName" Type="varchar" Mode="In" />
+          <Parameter Name="LastName" Type="varchar" Mode="In" />
+          <Parameter Name="DateOfBirth" Type="date" Mode="In" />
+          <Parameter Name="NacionalityID" Type="int" Mode="In" />
+          <Parameter Name="Diseases" Type="varchar" Mode="In" />
+          <Parameter Name="PhoneNumber" Type="varchar" Mode="In" />
+          <Parameter Name="BloodTypeID" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="TechnicalTestDBModelStoreContainer">
+          <EntitySet Name="BloodTypes" EntityType="Self.BloodTypes" Schema="General" store:Type="Tables" />
+          <EntitySet Name="Nationalities" EntityType="Self.Nationalities" Schema="General" store:Type="Tables" />
+          <EntitySet Name="Patients" EntityType="Self.Patients" Schema="General" store:Type="Tables" />
+          <AssociationSet Name="FK_Patients_BloodTypes" Association="Self.FK_Patients_BloodTypes">
+            <End Role="BloodTypes" EntitySet="BloodTypes" />
+            <End Role="Patients" EntitySet="Patients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Patients_Nationalities" Association="Self.FK_Patients_Nationalities">
+            <End Role="Nationalities" EntitySet="Nationalities" />
+            <End Role="Patients" EntitySet="Patients" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TechnicalTestDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BloodType">
+          <Key>
+            <PropertyRef Name="BloodTypeID" />
+          </Key>
+          <Property Name="BloodTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BloodTypeName" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Patients" Relationship="Self.FK_Patients_BloodTypes" FromRole="BloodTypes" ToRole="Patients" />
+        </EntityType>
+        <EntityType Name="Nationality">
+          <Key>
+            <PropertyRef Name="NacionalityID" />
+          </Key>
+          <Property Name="NacionalityID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NacionalityName" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="CountryName" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Patients" Relationship="Self.FK_Patients_Nationalities" FromRole="Nationalities" ToRole="Patients" />
+        </EntityType>
+        <EntityType Name="Patient">
+          <Key>
+            <PropertyRef Name="PatientID" />
+          </Key>
+          <Property Name="PatientID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="NacionalityID" Type="Int32" Nullable="false" />
+          <Property Name="Diseases" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="BloodTypeID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="BloodType" Relationship="Self.FK_Patients_BloodTypes" FromRole="Patients" ToRole="BloodTypes" />
+          <NavigationProperty Name="Nationality" Relationship="Self.FK_Patients_Nationalities" FromRole="Patients" ToRole="Nationalities" />
+        </EntityType>
+        <Association Name="FK_Patients_BloodTypes">
+          <End Role="BloodTypes" Type="Self.BloodType" Multiplicity="1" />
+          <End Role="Patients" Type="Self.Patient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BloodTypes">
+              <PropertyRef Name="BloodTypeID" />
+            </Principal>
+            <Dependent Role="Patients">
+              <PropertyRef Name="BloodTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Patients_Nationalities">
+          <End Role="Nationalities" Type="Self.Nationality" Multiplicity="1" />
+          <End Role="Patients" Type="Self.Patient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nationalities">
+              <PropertyRef Name="NacionalityID" />
+            </Principal>
+            <Dependent Role="Patients">
+              <PropertyRef Name="NacionalityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TechnicalTestDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BloodTypes" EntityType="Self.BloodType" />
+          <EntitySet Name="Nationalities" EntityType="Self.Nationality" />
+          <EntitySet Name="Patients" EntityType="Self.Patient" />
+          <AssociationSet Name="FK_Patients_BloodTypes" Association="Self.FK_Patients_BloodTypes">
+            <End Role="BloodTypes" EntitySet="BloodTypes" />
+            <End Role="Patients" EntitySet="Patients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Patients_Nationalities" Association="Self.FK_Patients_Nationalities">
+            <End Role="Nationalities" EntitySet="Nationalities" />
+            <End Role="Patients" EntitySet="Patients" />
+          </AssociationSet>
+          <FunctionImport Name="spBloodTypesListAll" ReturnType="Collection(TechnicalTestDBModel.spBloodTypesListAll_Result)" />
+          <FunctionImport Name="spNationalitiesListAll" ReturnType="Collection(TechnicalTestDBModel.spNationalitiesListAll_Result)" />
+          <FunctionImport Name="spPatientsAdd">
+            <Parameter Name="PatientID" Mode="In" Type="String" />
+            <Parameter Name="FirstName" Mode="In" Type="String" />
+            <Parameter Name="LastName" Mode="In" Type="String" />
+            <Parameter Name="DateOfBirth" Mode="In" Type="DateTime" />
+            <Parameter Name="NacionalityID" Mode="In" Type="Int32" />
+            <Parameter Name="Diseases" Mode="In" Type="String" />
+            <Parameter Name="PhoneNumber" Mode="In" Type="String" />
+            <Parameter Name="BloodTypeID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spPatientsDelete">
+            <Parameter Name="PatientID" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spPatientsListAll" ReturnType="Collection(TechnicalTestDBModel.spPatientsListAll_Result)" />
+          <FunctionImport Name="spPatientsUpdate">
+            <Parameter Name="PatientID" Mode="In" Type="String" />
+            <Parameter Name="FirstName" Mode="In" Type="String" />
+            <Parameter Name="LastName" Mode="In" Type="String" />
+            <Parameter Name="DateOfBirth" Mode="In" Type="DateTime" />
+            <Parameter Name="NacionalityID" Mode="In" Type="Int32" />
+            <Parameter Name="Diseases" Mode="In" Type="String" />
+            <Parameter Name="PhoneNumber" Mode="In" Type="String" />
+            <Parameter Name="BloodTypeID" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="spBloodTypesListAll_Result">
+          <Property Type="Int32" Name="BloodTypeID" Nullable="false" />
+          <Property Type="String" Name="BloodTypeName" Nullable="false" MaxLength="15" />
+        </ComplexType>
+        <ComplexType Name="spNationalitiesListAll_Result">
+          <Property Type="Int32" Name="NacionalityID" Nullable="false" />
+          <Property Type="String" Name="NacionalityName" Nullable="true" MaxLength="40" />
+        </ComplexType>
+        <ComplexType Name="spPatientsListAll_Result">
+          <Property Type="String" Name="PatientID" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="FirstName" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="LastName" Nullable="false" MaxLength="30" />
+          <Property Type="DateTime" Name="DateOfBirth" Nullable="false" />
+          <Property Type="Int32" Name="NacionalityID" Nullable="false" />
+          <Property Type="String" Name="NacionalityName" Nullable="true" MaxLength="40" />
+          <Property Type="String" Name="Diseases" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="PhoneNumber" Nullable="true" MaxLength="10" />
+          <Property Type="Int32" Name="BloodTypeID" Nullable="false" />
+          <Property Type="String" Name="BloodTypeName" Nullable="false" MaxLength="15" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TechnicalTestDBModelStoreContainer" CdmEntityContainer="TechnicalTestDBEntities">
+          <EntitySetMapping Name="BloodTypes">
+            <EntityTypeMapping TypeName="TechnicalTestDBModel.BloodType">
+              <MappingFragment StoreEntitySet="BloodTypes">
+                <ScalarProperty Name="BloodTypeID" ColumnName="BloodTypeID" />
+                <ScalarProperty Name="BloodTypeName" ColumnName="BloodTypeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Nationalities">
+            <EntityTypeMapping TypeName="TechnicalTestDBModel.Nationality">
+              <MappingFragment StoreEntitySet="Nationalities">
+                <ScalarProperty Name="NacionalityID" ColumnName="NacionalityID" />
+                <ScalarProperty Name="NacionalityName" ColumnName="NacionalityName" />
+                <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Patients">
+            <EntityTypeMapping TypeName="TechnicalTestDBModel.Patient">
+              <MappingFragment StoreEntitySet="Patients">
+                <ScalarProperty Name="PatientID" ColumnName="PatientID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="NacionalityID" ColumnName="NacionalityID" />
+                <ScalarProperty Name="Diseases" ColumnName="Diseases" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="BloodTypeID" ColumnName="BloodTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spBloodTypesListAll" FunctionName="TechnicalTestDBModel.Store.spBloodTypesListAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TechnicalTestDBModel.spBloodTypesListAll_Result">
+                <ScalarProperty Name="BloodTypeID" ColumnName="BloodTypeID" />
+                <ScalarProperty Name="BloodTypeName" ColumnName="BloodTypeName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spNationalitiesListAll" FunctionName="TechnicalTestDBModel.Store.spNationalitiesListAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TechnicalTestDBModel.spNationalitiesListAll_Result">
+                <ScalarProperty Name="NacionalityID" ColumnName="NacionalityID" />
+                <ScalarProperty Name="NacionalityName" ColumnName="NacionalityName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spPatientsAdd" FunctionName="TechnicalTestDBModel.Store.spPatientsAdd" />
+          <FunctionImportMapping FunctionImportName="spPatientsDelete" FunctionName="TechnicalTestDBModel.Store.spPatientsDelete" />
+          <FunctionImportMapping FunctionImportName="spPatientsListAll" FunctionName="TechnicalTestDBModel.Store.spPatientsListAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TechnicalTestDBModel.spPatientsListAll_Result">
+                <ScalarProperty Name="PatientID" ColumnName="PatientID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="NacionalityID" ColumnName="NacionalityID" />
+                <ScalarProperty Name="NacionalityName" ColumnName="NacionalityName" />
+                <ScalarProperty Name="Diseases" ColumnName="Diseases" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="BloodTypeID" ColumnName="BloodTypeID" />
+                <ScalarProperty Name="BloodTypeName" ColumnName="BloodTypeName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spPatientsUpdate" FunctionName="TechnicalTestDBModel.Store.spPatientsUpdate" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

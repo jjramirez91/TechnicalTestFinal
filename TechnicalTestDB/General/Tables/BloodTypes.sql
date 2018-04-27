@@ -1,0 +1,7 @@
+﻿CREATE TABLE General.BloodTypes
+(
+	BloodTypeID INT IDENTITY(1,1) NOT NULL
+	, BloodTypeName VARCHAR(15) NOT NULL
+	, CONSTRAINT PK_BloodTypes 
+		PRIMARY KEY CLUSTERED(BloodTypeID)
+);

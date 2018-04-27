@@ -1,0 +1,63 @@
+﻿@model MVC.Models.mvcPatientsModel
+@{
+    ViewBag.Title = "AddOrEdit";
+}
+
+<div class="form-body">
+    @using (Html.BeginForm())
+    {
+        <div class="form-group">
+            @Html.LabelFor(model => model.PatientID)
+            @Html.EditorFor(model => model.PatientID)
+            @Html.ValidationMessageFor(model => model.PatientID)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.FirstName)
+            @Html.EditorFor(model => model.FirstName)
+            @Html.ValidationMessageFor(model => model.FirstName)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.LastName)
+            @Html.EditorFor(model => model.LastName)
+            @Html.ValidationMessageFor(model => model.LastName)
+        </div>
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.SelectedNationalityIso3, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.DropDownListFor(model => model.SelectedNationalityIso3, new SelectList(Model.Nationalities, "Value", "Text"), htmlAttributes: new { @class = "form-control", id = "Nationality" })
+            </div>*@
+        <div class="form-group">
+            @Html.LabelFor(model => model.Nationality.NacionalityID)
+            @Html.EditorFor(model => model.Nationality.NacionalityID)
+            @Html.ValidationMessageFor(model => model.Nationality.NacionalityID)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Diseases)
+            @Html.EditorFor(model => model.Diseases)
+            @Html.ValidationMessageFor(model => model.Diseases)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.PhoneNumber)
+            @Html.EditorFor(model => model.PhoneNumber)
+            @Html.ValidationMessageFor(model => model.PhoneNumber)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.BloodType.BloodTypeID)
+            @Html.EditorFor(model => model.BloodType.BloodTypeID)
+            @Html.ValidationMessageFor(model => model.BloodType.BloodTypeID)
+        </div>
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.SelectedBloodTypeIso3, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.DropDownListFor(model => model.SelectedBloodTypeIso3, new SelectList(Model.BloodTypes, "Value", "Text"), htmlAttributes: new { @class = "form-control", id = "Blood Type" })
+            </div>*@
+
+        <div class="form-group">
+            <input type="submit" value="Submit" class="btn button" />
+            <input type="reset" value="Reset" class="btn button" />
+        </div>
+
+    }
+</div>
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval");
+}
